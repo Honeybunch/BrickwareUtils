@@ -54,19 +54,17 @@ void Logger::Log(const char* output)
 
 	logFileStream->flush(); //Flush so that we can read the file as the program runs
 
+//Live log the error to the console if we're in debug mode
+#ifdef BRICKWARE_DEBUG
+	printf(output);
+#endif
+
 	delete currentTime;
 }
 
 void Logger::Log(std::string output)
 {
-	//Timestamp all logs
-	char* currentTime = GetDateTime();
-
-	(*logFileStream) << output << " - " << currentTime << std::endl;
-
-	logFileStream->flush(); //Flush so that we can read the file as the program runs
-
-	delete currentTime;
+	Log(output.c_str());
 }
 
 /*
